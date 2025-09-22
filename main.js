@@ -215,14 +215,84 @@ class Board {
             this.matrix[pos.x][pos.y] = this.newNumber();
         }
     }
+
+    chekWinCondition(score) {
+        return score > 2047;
+    }
 }
+
+class HighScores {
+  constructor(key = 'highscores') {
+    this.key = key;
+    this.scores = this.load();
+  }
+
+  load() {
+    const data = localStorage.getItem(this.key);
+    return data ? JSON.parse(data) : [];
+  }
+
+  save() {
+    localStorage.setItem(this.key, JSON.stringify(this.scores));
+  }
+
+  add(score) {
+    this.scores.push({
+            date: this.getFormattedDate(),
+            value: score
+        });
+    this.scores.sort((a, b) => b.value - a.value); 
+    this.scores = this.scores.slice(0, 10); 
+    this.save();
+  }
+
+  getFormattedDate() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); 
+    const day = String(now.getDate()).padStart(2, '0');
+
+    const hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+
+  getTopScores() {
+    return this.scores;
+  }
+
+  showHighScores() {
+    const rows = document.querySelectorAll('.scores tr');
+    const scores = this.getTopScores();
+    for (let i = 1; i < rows.length; i++) {
+        const tableCells = rows[i].querySelectorAll('td');
+        if (scores[i - 1]) {
+            tableCells[0].textContent = scores[i - 1].date;
+            tableCells[1].textContent = scores[i - 1].value;
+        } else {
+            tableCells[0].textContent = '';
+            tableCells[1].textContent = '';
+        }
+    }
+  }
+
+  clear() {
+    this.scores = [];
+    this.save();
+    this.showHighScores();
+  }
+}
+
 
 const createMatrixElements = () => {
     const main = document.querySelector('section');
     const cells = [];
-    const board = document.createElement('div');
-    board.classList.add('grid')
-    main.append(board);
+    const board = document.querySelector('.grid');
+
     for(let i = 0; i < 4; i++){
         cells[i] = [];
         for(let j = 0; j < 4; j++){
@@ -235,10 +305,15 @@ const createMatrixElements = () => {
     return cells;
 }
 
+const currentHighScores = new HighScores('highscores');
+currentHighScores.showHighScores();
+
 const fourbyfour = new Board();
 cells = createMatrixElements();
 fourbyfour.updateMatrix(cells);
 const button = document.querySelector('button');
+const winElement = document.querySelector('.won');
+
 
 document.addEventListener('keydown', event => {
     if(!fourbyfour.checkGameEnd()){
@@ -260,6 +335,9 @@ document.addEventListener('keydown', event => {
         }
     setTimeout(() => {
         fourbyfour.updateMatrix(cells);
+        if(fourbyfour.chekWinCondition(fourbyfour.currentScore())){ 
+            winElement.textContent = `Congratulations! you reached ${fourbyfour.currentScore()}. Now try to reach more!`;
+        }
     }, 100);
     }else{
         button.style.display = 'block';
@@ -267,6 +345,14 @@ document.addEventListener('keydown', event => {
 });
 
 button.addEventListener('click', () => {
+    currentHighScores.add(fourbyfour.currentScore());
     fourbyfour.resetBoard();
     fourbyfour.updateMatrix(cells);
+    winElement.textContent = `Reach 2048 to win a game`;
+    currentHighScores.showHighScores();
+});
+
+const clearHS = document.querySelector('.clearHS');
+clearHS.addEventListener('click', () => {
+    currentHighScores.clear();
 });

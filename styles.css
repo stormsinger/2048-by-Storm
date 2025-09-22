@@ -22,31 +22,39 @@ p {
 }
 header {
     text-align: center;
+    grid-column: 1 / 4;
+    height: 80px;
 }
 body {
     margin: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 80px auto 80px;
     background-color: #1f2d27;
     color: #e0b296;
-    flex-direction: column;
     min-height: 100vh;
-
 }
+
+h1 {
+  grid-column: 3;
+}
+
 footer {
     background-color: #333;
     padding: 0px;
     text-align: center;
     margin-top: auto;
+    grid-column: 1 / 4;
 }
 h2 {
     margin: 0;
 }
 main {
-    flex: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    grid-column: 2;
 }
 button {
     display: none;
@@ -60,9 +68,25 @@ button {
     font-size: 24px;
     border: 5px solid darkgreen;
 }
+
+button:hover {
+    color: #ea6a1a;
+    background-color: #164b2d;
+    margin: 15px 15px 15px 10px;
+    width: 150px;
+    height: 50px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 27px;
+    border: 5px solid rgb(5, 189, 5);
+    cursor: pointer;
+    transition: 0.1s;
+}
+
 section{
+
     width: 400px;
-    height: 420px;
+    height: 440px;
     border: 5px solid darkgreen;
     border-radius: 3px;
     padding: 20px;
@@ -77,6 +101,10 @@ section{
   background-color: #2e2e2e;
   border-radius: 7px;
   margin: 0 auto;
+}
+.won {
+  position: relative;
+  text-align: center;
 }
 
 .tile {
@@ -107,3 +135,50 @@ section{
   transform: translateY(calc(77px * var(--steps)));
 }
 
+.highScores{
+  display: grid;
+  grid-template-rows: 50px auto;
+  height: 480px;
+  width: 250px;
+  margin-top: 20px;
+  border: 5px solid darkgreen;
+}
+.scores {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-size: 12px;
+  font-weight: normal;
+  color: green;
+  width: 220px;
+  height: 30px;
+  line-height: 30px;
+}
+th {
+  font-size: 24px;
+}
+
+.clearHS {
+    display: block;
+    color: #e0b296;
+    background-color: #2e8b57;
+    margin: 20px;
+    width: 220px;
+    height: 50px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 22px;
+    border: 5px solid darkgreen;
+}
+.clearHS:hover {
+    display: block;
+    color: #e0b296;
+    background-color: #2e8b57;
+    margin: 18px 18px 18px 16px;
+    width: 220px;
+    height: 50px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 22px;
+    border: 5px solid darkgreen;
+}
