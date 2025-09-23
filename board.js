@@ -1,11 +1,6 @@
 export class Board {
     constructor() {
         this.resetBoard();
-        // this.matrix = Array.from({ length: 4 }, () => Array(4).fill(0));
-        // for(let i = 0; i < 2; i++){
-        //     const pos = this.getRandomPosition();
-        //     this.matrix[pos.x][pos.y] = this.newNumber();
-        // }
         this.movements = {
             moved: false,
             movement: Array.from({ length: 4 }, () =>
@@ -27,7 +22,6 @@ export class Board {
         this.matrix.forEach((row, i) => {
             row.forEach((value, j) => {
                 if(!value) indexes.push(({x: i, y: j}));
-                // if(!this.matrix[i][j]) indexes.push(({x: i, y: j}));
             });
         }); 
 

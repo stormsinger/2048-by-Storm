@@ -77,16 +77,17 @@ export class BoardRender{
     showSparkles() {
         const board = document.querySelector('body');
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 200; i++) {
             const sparkle = document.createElement('div');
             sparkle.classList.add('sparkle');
-            sparkle.style.left = `${Math.random() * width}px`;
-            sparkle.style.top = `${Math.random() * height}px`;
+            sparkle.style.left = `${Math.random() * (board.offsetWidth - 10)}px`;
+            sparkle.style.top = `${Math.random() * (board.offsetHeight - 10)}px`;
             board.append(sparkle);
 
             setTimeout(() => sparkle.remove(), 2000);
         }
     }
+
     showSparklesFromTile(value) {
         for (const cell of this.cells.flat()) {
             if (parseInt(cell.textContent) === value) {
@@ -106,7 +107,7 @@ export class BoardRender{
                     setTimeout(() => sparkle.remove(), 1500);
                 }
 
-                break; // tik viena plytelė
+                break; 
             }
         }
     }
