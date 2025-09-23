@@ -7,6 +7,7 @@ div {
 }
 .score>h3{
   color: #e0b296;
+  font-size: 20px;
 }
 p {
     position: absolute;
@@ -221,7 +222,7 @@ th {
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffec8b;
+    text-shadow: #ffd700;
   }
   100% {
     opacity: 0;

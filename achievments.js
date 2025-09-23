@@ -17,7 +17,7 @@ export class Achievements {
                 }
 
                 rendering.showAchievementMessage(
-                    `🎉 Achievement: You reached ${value} points for the first time!`,
+                    `Achievement: You reached ${value} points for the first time!`,
                     score
                 );
 
