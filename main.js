@@ -1,6 +1,7 @@
 import { Board } from './board.js';
 import { BoardRender } from './visualisation.js';
 import { HighScores } from './highscores.js'
+import { Achievements } from './achievments.js';
 
 const currentHighScores = new HighScores('highscores');
 currentHighScores.showHighScores();
@@ -9,6 +10,8 @@ const fourbyfour = new Board();
 
 const rendering = new BoardRender();
 rendering.updateMatrix(fourbyfour.matrix, fourbyfour.currentScore());
+
+const achieved = new Achievements();
 
 const button = document.querySelector('button');
 const winElement = document.querySelector('.won');
@@ -35,10 +38,16 @@ document.addEventListener('keydown', event => {
     rendering.movementAnimations(fourbyfour.movements, rendering.cells);
     setTimeout(() => {
         rendering.updateMatrix(fourbyfour.matrix, fourbyfour.currentScore());
+
+        
+
         if(fourbyfour.chekWinCondition(fourbyfour.currentScore())){ 
             winElement.textContent = `Congratulations! you reached ${fourbyfour.currentScore()}. Now try to reach more!`;
         }
     }, 100);
+    setTimeout(() => {
+      achieved.check(fourbyfour.currentScore(), rendering);
+    }, 200)
     }else{
         button.textContent = 'Play Again';
     }

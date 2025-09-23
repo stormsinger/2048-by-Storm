@@ -73,4 +73,56 @@ export class BoardRender{
             }
         }
     }
+
+    showSparkles() {
+        const board = document.querySelector('body');
+
+        for (let i = 0; i < 20; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = `${Math.random() * width}px`;
+            sparkle.style.top = `${Math.random() * height}px`;
+            board.append(sparkle);
+
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+    }
+    showSparklesFromTile(value) {
+        for (const cell of this.cells.flat()) {
+            if (parseInt(cell.textContent) === value) {
+                const rect = cell.getBoundingClientRect();
+
+                for (let i = 0; i < 20; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.left = `${rect.left + Math.random() * rect.width}px`;
+                    sparkle.style.top = `${rect.top + Math.random() * rect.height}px`;
+                    sparkle.style.zIndex = '9999';
+                    sparkle.style.pointerEvents = 'none';
+
+                    document.body.append(sparkle);
+                    setTimeout(() => sparkle.remove(), 1500);
+                }
+
+                break; // tik viena plytelė
+            }
+        }
+    }
+
+
+    showAchievementMessage(message, score) {
+        const h3 = document.querySelector('h3');
+        const originalText = `Current score: ${score} points`;
+
+        h3.textContent = message;
+
+        h3.classList.add('achievement-line');
+
+        setTimeout(() => {
+            h3.textContent = originalText;
+            h3.classList.remove('achievement-line');
+        }, 2500);
+    }
 }
