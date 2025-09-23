@@ -190,7 +190,7 @@ th {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: radial-gradient(circle, #fff, transparent);
+  background: radial-gradient(circle, #ff9129, transparent);
   border-radius: 50%;
   animation: sparkle-float 2s ease-out forwards;
   pointer-events: none;
