@@ -58,7 +58,7 @@ main {
     grid-column: 2;
 }
 button {
-    display: none;
+    /* display: none; */
     color: #e0b296;
     background-color: #2e8b57;
     margin: 20px;
